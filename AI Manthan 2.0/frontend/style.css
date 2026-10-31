@@ -1,0 +1,170 @@
+/* --- Section navigation --- */
+.subnav {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.subnav a {
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 99px;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.subnav a:hover { color: var(--text); border-color: var(--line); }
+
+/* --- Chart legend --- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: -4px 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.sw {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  margin-right: 6px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.sw.acc   { background: var(--acc); }
+.sw.thr   { background: var(--bad); }
+.sw.shade { height: 10px; background: var(--bad); opacity: 0.25; }
+
+/* --- Vehicle-state bars: stronger color cues --- */
+.bar div { transition: width 0.3s, background 0.3s; }
+
+/* --- Check status text color (overrides .checks i muted color) --- */
+.checks i.ok   { color: var(--ok); }
+.checks i.warn { color: var(--warn); }
+.checks i.bad  { color: var(--bad); }
+
+/* --- Pipeline steps --- */
+.pipeline { grid-column: span 12; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+}
+.step.crit::before { background: var(--bad); }
+.step b { display: block; margin-bottom: 4px; font-size: 14px; }
+.step span { font-size: 13px; color: var(--muted); }
+
+/* --- Model and metrics cards --- */
+.model   { grid-column: span 7; }
+.metrics { grid-column: span 5; }
+.note { margin: 0 0 12px; font-size: 13px; color: var(--muted); }
+
+table.kv { font-size: 13px; }
+table.kv td {
+  padding: 7px 8px;
+  font-family: inherit;
+  white-space: normal;
+  vertical-align: top;
+}
+table.kv td:first-child {
+  width: 36%;
+  color: var(--muted);
+}
+
+.mgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.mtile {
+  padding: 10px 6px;
+  text-align: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.mtile b { display: block; font-size: 22px; }
+.mtile span { font-size: 11px; color: var(--muted); }
+
+/* --- Checklist --- */
+.checklist-card { grid-column: span 12; }
+.checklist { margin: 0; padding: 0; list-style: none; }
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+.checklist li:last-child { border-bottom: 0; }
+.st {
+  flex: none;
+  min-width: 84px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.st.done { background: var(--ok); color: var(--bg); }
+.st.wip  { background: var(--warn); color: var(--bg); }
+.st.todo { border: 1px solid var(--muted); color: var(--muted); }
+
+/* --- Footer --- */
+footer {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1100px) {
+  .steps { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .model,
+  .metrics { grid-column: span 12; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .steps { grid-template-columns: 1fr; }
+  .mgrid { grid-template-columns: repeat(2, 1fr); }
+  .subnav { padding: 8px 12px; }
+}
